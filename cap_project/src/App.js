@@ -1,17 +1,11 @@
-import { Container } from 'react-bootstrap';
-import '~/App.css';
-import { Routes } from 'react-router-dom';
-
 const App = () => {
- return (
-  <>
-   <div className="App">
-    <Container fluid>
-     <Routes></Routes>
-    </Container>
-   </div>
-  </>
- );
+  return (
+    <>
+      <div className="App">
+        <h1>React App</h1>
+      </div>
+    </>
+  );
 };
 
 export default App;
