@@ -1,8 +1,8 @@
 import { Container } from "react-bootstrap";
-import "./App.css";
+import "~/App.css";
 import { Routes } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
     <>
       <div className="App">
@@ -12,6 +12,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;
