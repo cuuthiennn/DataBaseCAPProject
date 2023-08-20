@@ -1,22 +1,61 @@
 @import 'normalize.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'react-toastify/dist/ReactToastify.css';
 
 :root {
-  --primary: #fe2c55;
-}
-
-html {
-  font-size: 62.5%;
+  --primary: #1c2438;
+  --background: #151929;
+  --text: #d3d3dc;
+  --btn: #44c6a2;
 }
 
 * {
-    box-sizing: border-box;
-    
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.5;
   text-rendering: optimizespeed;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+main {
+  background-color: var(--primary);
+}
+
+.form-control {
+  background-color: var(--text);
+  border: none;
+
+  &:focus {
+    box-shadow: none;
+    background-color: var(--text);
+  }
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-link {
+  color: #4c4c4c;
+  font-weight: 800;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.nav-link.active {
+  color: var(--text) !important;
+}
+
+p {
+  margin-bottom: 0px;
 }

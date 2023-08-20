@@ -1,0 +1,18 @@
+.login {
+  background-color: var(--primary);
+  div {
+    .btn {
+      background-color: var(--btn);
+
+      &:hover {
+        color: var(--text);
+        background-color: var(--background);
+        transition: 0.2s;
+      }
+
+      &:active {
+        border: none;
+      }
+    }
+  }
+}

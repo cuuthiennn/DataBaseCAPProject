@@ -1,0 +1,27 @@
+.navbar {
+  background-color: var(--primary);
+
+  .navbar-brand {
+    color: var(--text);
+    font-weight: 500;
+  }
+}
+
+.navbar .btn {
+  color: var(--btn);
+  outline: var(--primary);
+  border: 2px var(--btn) solid;
+
+  &:hover {
+    background-color: var(--btn);
+    transition: 0.2s;
+  }
+}
+.navbar-toggler {
+  &:focus {
+    box-shadow: none;
+  }
+}
+.navbar-toggler-icon {
+  color: var(--text);
+}
