@@ -12,9 +12,7 @@ const config = {
     }
 }
 
-const connect = new mssql.ConnectionPool(config);
-
-connect.connect(config, (err)=>{
+const connect = new mssql.connect(config, (err)=>{
     if(err){
         console.log(err);
     }else{
