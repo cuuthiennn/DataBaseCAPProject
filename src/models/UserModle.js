@@ -30,12 +30,12 @@ class UserModel{
         const newUser = {
             user_name: data.user_name,
             password: data.password,
-            first_name : data.first_name,
-            last_name : data.last_name,
-            birthday : data.birthday,
-            email : data.email,
-            gender : data.gender,
-            phone : data.phone
+            first_name : data.first_name || '',
+            last_name : data.last_name || '',
+            birthday : data.birthday || '',
+            email : data.email || '',
+            gender : data.gender || '',
+            phone : data.phone || ''
         };
         pool.input('user_name', newUser.user_name);
         pool.input('password', newUser.password);

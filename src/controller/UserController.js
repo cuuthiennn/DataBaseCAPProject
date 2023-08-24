@@ -1,12 +1,14 @@
 const userModle = require('../models/UserModle');
+const SessionService = require('../services/sessionService');
 
 class UserController{
     constructor(){
         this.userModle = new userModle();
+        this.sessionService = new SessionService();
     }
 
-    getAllUser = async (red, res) => {
-        //if(red.session.user.id != undefined && red.session.user.user_name != undefined   ) {
+    getAllUser = async (req, res) => {
+        if(this.sessionService.isExist(req)) {
             try {
                 const result =JSON.parse(await this.userModle.getAllUser()).recordsets;
                 res.status(200).json({
@@ -21,15 +23,15 @@ class UserController{
                     data: null,
                 })
             }
-        // } else {
-        //     red.redirect('/login');
-        // }
+        } else {
+            
+        }
     };
 
-    getUserById = async (red, res) => {
-        if(red.session.user.id && red.session.user.user_name){
+    getUserById = async (req, res) => {
+        if(this.sessionService.isExist(req)) {
             try {
-                const result = JSON.parse(await this.userModle.getUserById(red.params.id)).recordset;
+                const result = JSON.parse(await this.userModle.getUserById(req.params.id)).recordset;
                 res.status(200).json({
                     message: "Success when call api getUserById",
                     success: true,
@@ -43,14 +45,14 @@ class UserController{
                 })
             }
         } else {
-            red.redirect('/login');
+            
         }
     };
 
-    create = async (red, res) => {
-        if(red.session.user.id && red.session.user.user_name){
+    create = async (req, res) => {
+        if(this.sessionService.isExist(req)){
             try {
-                const result = JSON.parse(await this.userModle.createUser(red.body)).recordsets;
+                const result = JSON.parse(await this.userModle.createUser(req.body)).recordsets;
                 res.status(200).json({
                     message: "Success when call api create",
                     success: true,
@@ -66,10 +68,10 @@ class UserController{
         }
     };
 
-    update = async (red, res) => {
-        if(red.session.user.id && red.session.user.user_name) {
+    update = async (req, res) => {
+        if(this.sessionService.isExist(req)) {
             try {
-                const result = JSON.parse(await this.userModle.updateUser(red.params.id, red.body)).recordset;
+                const result = JSON.parse(await this.userModle.updateUser(req.params.id, req.body)).recordset;
                 res.status(200).json({
                     message: "Success when call api update",
                     success: true,
@@ -85,10 +87,10 @@ class UserController{
         }
     };
 
-    deleteUser = (red, res) => {
-        if (red.session.user.id && red.session.user.user_name) {
+    deleteUser = (req, res) => {
+        if (this.sessionService.isExist(req)) {
             try {
-                const result = this.userModle.deleteUser(red.params.id);
+                const result = this.userModle.deleteUser(req.params.id);
             res.status(200).json({
                 message: "Success when call api deleteUser",
                 success: true,
@@ -103,18 +105,15 @@ class UserController{
         }
     };
 
-    login = async (red, res) => {
+    login = async (req, res) => {
         try {
             const user = {
-                user_name: red.params.user_name,
-                password: red.params.password
+                user_name: req.params.user_name,
+                password: req.params.password
             }
             const result = JSON.parse(await this.userModle.login(user)).recordset;
             if(result) {
-                red.session.user = {
-                    id: result[0].id,
-                    user_name: result[0].user_name
-                };
+                this.sessionService.setSession(req, result[0].id, result[0].user_name)
                 res.status(200).json({
                     message: "Success when call api login",
                     success: true,
@@ -128,17 +127,27 @@ class UserController{
         }
     };
 
-    register = (red, res) => {
-        res.status(200).json({
-            message: "Success when call api register",
-            success: true,
-        });
+    register = async (req, res) => {
+        try {
+            const result = JSON.parse(await this.userModle.createUser(req.params.id, req.body)).recordset;
+            res.status(200).json({
+                message: "Success when call api register",
+                success: true,
+                data: result
+            });
+        } catch (error) {
+            res.status(404).json({
+                message: "Failed when call api register: "+ error.message,
+                success: false,
+                data: null
+            })
+        }
     };
 
-    logout = (red, res) => {
-        if(red.session.user.id && red.session.user.user_name){
+    logout = (req, res) => {
+        if(this.sessionService.isExist(req)){
             try {
-                red.session.destroy();
+                this.sessionService.deleteSession(req);
                 res.status(200).json({
                 message: "Success when call api logout",
                 success: true,
