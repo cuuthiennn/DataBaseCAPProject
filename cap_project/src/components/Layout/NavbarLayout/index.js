@@ -4,7 +4,7 @@ function NavbarLayout({ children }) {
   return (
     <>
       <Header />
-      <div className="container-fluid">{children}</div>
+      <div className="container-fluid py-4">{children}</div>
     </>
   );
 }

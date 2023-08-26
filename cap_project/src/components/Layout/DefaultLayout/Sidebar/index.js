@@ -29,7 +29,6 @@ function Sidebar(props) {
           },
         }}
       >
-        <h5 className="">Upload File</h5>
         <MenuItem component={<Link to="/upload/upload_template" />}> Upload Template </MenuItem>
         <MenuItem component={<Link to="/upload/upload_page" />}> Upload Page</MenuItem>
         <MenuItem component={<Link to="/upload/upload_history" />}> Upload History</MenuItem>

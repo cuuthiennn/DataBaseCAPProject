@@ -12,7 +12,7 @@ function Upload_File() {
               <label for="exampleInputEmail1" class="form-label">
                 Folder
               </label>
-              <select class="form-select">
+              <select className="form-select">
                 <option selected>Open this select menu</option>
                 <option value="1">Folder A</option>
                 <option value="2">Folder B</option>

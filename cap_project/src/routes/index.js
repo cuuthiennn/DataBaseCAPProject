@@ -19,7 +19,7 @@ export const publicRoutes = [
   { path: '/upload/upload_history', component: Upload_History },
   { path: '/upload/upload_page', component: Upload_File },
   { path: '/upload/upload_template', component: Upload_Template },
-  { path: '/admin/users', component: Users_Control },
+  { path: '/admin/users', component: Users_Control, layout: NavbarLayout },
   { path: '/admin/working_role', component: Working_Role, layout: NavbarLayout },
   { path: '/login', component: Login, layout: null },
   { path: '/404', component: NotFound, layout: NavbarLayout },
