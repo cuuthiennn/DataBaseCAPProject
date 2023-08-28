@@ -37,14 +37,15 @@ class UserModel{
             gender : data.gender || '',
             phone : data.phone || ''
         };
-        pool.input('user_name', newUser.user_name);
-        pool.input('password', newUser.password);
-        pool.input('first_name', newUser.first_name);
-        pool.input('last_name', newUser.last_name);
-        pool.input('birthday', newUser.birthday);
-        pool.input('email', newUser.email);
-        pool.input('gender', newUser.gender);
-        pool.input('phone', newUser.phone);
+        const db = pool.request();
+        db.input('user_name', newUser.user_name);
+        db.input('password', newUser.password);
+        db.input('first_name', newUser.first_name);
+        db.input('last_name', newUser.last_name);
+        db.input('birthday', newUser.birthday);
+        db.input('email', newUser.email);
+        db.input('gender', newUser.gender);
+        db.input('phone', newUser.phone);
         queryCommand = `INSERT INTO account (user_name, password, first_name, last_name, birthday, email, gender, phone) OUTPUT inserted.*`
         + `VALUES (@user_name, @password, @first_name, @last_name, @birthday, @email, @gender, @phone)`;
         pool.input('user_name', newUser)
@@ -52,7 +53,7 @@ class UserModel{
         return results;
     }
     
-    updateUser = (id, data) =>{
+    updateUser = async (id, data) =>{
         const newUser = {
             user_name: data.user_name,
             password: data.password,
@@ -63,15 +64,16 @@ class UserModel{
             gender: data.gender,
             phone: data.phone
         };
-        pool.input('user_name', newUser.user_name);
-        pool.input('password', newUser.password);
-        pool.input('first_name', newUser.first_name);
-        pool.input('last_name', newUser.last_name);
-        pool.input('birthday', newUser.birthday);
-        pool.input('email', newUser.email);
-        pool.input('gender', newUser.gender);
-        pool.input('phone', newUser.phone);
-        pool.input("id", id)
+        const db = pool.request();
+        db.input('user_name', newUser.user_name);
+        db.input('password', newUser.password);
+        db.input('first_name', newUser.first_name);
+        db.input('last_name', newUser.last_name);
+        db.input('birthday', newUser.birthday);
+        db.input('email', newUser.email);
+        db.input('gender', newUser.gender);
+        db.input('phone', newUser.phone);
+        db.input("id", id)
         const queryCommand = `UPDATE account Set user_name = @user_name,`+
                                                 `password = @password,`+
                                                 `first_name = @first_name,`+
@@ -81,18 +83,31 @@ class UserModel{
                                                 `gender = @gender,`+
                                                 `phone = @phone`+
                                 `OUTPUT inserted.* WHERE id = @id`;
-        pool.query(queryCommand, [newUser, id], (err, res) => {
-            if(err) {
-                console.log(err)
-            }
-            return {id: res.id, ...data};
-        })
+        const result = JSON.stringify( await pool.query(queryCommand) );
+        return result;
     }
+
+    delete = async (id) => {
+        const queryCommand = `DELETE FROM account OUTPUT deleted.[user_name],`+
+                                                        `deleted.[password],`+
+                                                        `deleted.[first_name],`+
+                                                        `deleted.[last_name],`+
+                                                        `deleted.[birthday],`+
+                                                        `deleted.[email],`+
+                                                        `deleted.[phone],`+
+                                                        `deleted.[gender]`+
+                                                        `WHERE id = @id`;
+        const db = pool.request();
+        db.input("id", id)
+        const result = JSON.stringify(await pool.query(queryCommand));
+        return result;
+    };
 
     login = async (data) => {
         const queryCommand = `SELECT a.id, a.user_name FROM account a WHERE user_name = @user_name AND password = @password`;
-        pool.input("user_name", data.user_name);
-        pool.input("password", data.password);
+        const db = pool.request();
+        db.input("user_name", data.user_name);
+        db.input("password", data.password);
         const result = JSON.stringify( await pool.query(queryCommand));
         return result;
     };

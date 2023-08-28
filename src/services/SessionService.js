@@ -13,10 +13,8 @@ class SessionService {
     }
 
     deleteSession = (req) => {
-        if( this.isExist(req)){
-            delete req.session.user.id;
-            delete req.session.user.user_name;
-        }
+        delete req.session.user.id;
+        delete req.session.user.user_name;
     }
 }
 

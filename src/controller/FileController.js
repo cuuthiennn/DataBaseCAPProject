@@ -8,7 +8,7 @@ class FileController {
     }
 
     addFile = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const file = {
                     "user_id": req.params.user_id,
@@ -31,13 +31,13 @@ class FileController {
                     data: null
                 })
             }
-        } else {
+        // } else {
             
-        }
+        // }
     };
 
     getAllFile = async (req, res) => {
-        if (this.sessionService.isExist(red)) {
+        // if (this.sessionService.isExist(red)) {
             try {
                 const user_id = req.params.id;
                 const result = JSON.parse( await this.fileModle.getAllFile(user_id) );
@@ -53,13 +53,13 @@ class FileController {
                     data: null
                 })
             }
-        } else {
+        // } else {
             
-        }
+        // }
     };
 
     deleteFile = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const {file_id, user_id} = req.params;
                 const result = JSON.parse( await this.fileModle.deleteFile(file_id, user_id) );
@@ -75,13 +75,13 @@ class FileController {
                     data: null
                 })
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
     updateFile = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const file = {
                     "id": req.params.id,
@@ -103,9 +103,9 @@ class FileController {
                     data: null
                 })
             }
-        } else {
+        // } else {
 
-        }
+        // }
     }
 }
 

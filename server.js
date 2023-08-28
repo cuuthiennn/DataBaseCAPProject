@@ -4,6 +4,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const session = require('./src/config/session');
 const port = process.env.PORT || 3001;
+require('./src/config/database')
 
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({extended: false}));

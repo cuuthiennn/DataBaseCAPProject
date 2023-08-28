@@ -18,6 +18,7 @@ const connect = new mssql.connect(config, (err)=>{
     }else{
         console.log('Connected to database');
     }
-})
+});
 
-module.exports = connect.request();
+
+module.exports = connect;

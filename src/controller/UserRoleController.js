@@ -8,14 +8,14 @@ class UserRoleCotroller {
     }
 
     createUserRole = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const role_name = req.params.role_name;
-                const userRole = await this.userRoleModle.createUserRole(role_name);
+                const result = JSON.parse( await this.userRoleModle.createUserRole(role_name) );
                 res.status(200).json({
                     message: "Success when call api createUserRole",
                     success: true,
-                    data: userRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
@@ -24,19 +24,19 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
     getAllUserRole = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
-                const userRole = await this.userRoleModle.getAllUserRole();
+                const result = JSON.parse( await this.userRoleModle.getAllUserRole() );
                 res.status(200).json({
                     message: "Success when call api getAllUserRole",
                     success: true,
-                    data: userRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
@@ -45,20 +45,20 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
     updateUserRole = async(req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const {role_id, role_name} = req.params;
-                const userRole = await this.userRoleModle.updateUserRole(role_id, role_name);
+                const result = JSON.parse( await this.userRoleModle.updateUserRole(role_id, role_name) );
                 res.status(200).json({
                     message: "Success when call api updateUserRole",
                     success: true,
-                    data: userRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
@@ -67,20 +67,20 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
     deleteUserRole = async(req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const role_id = req.params.role_id;
-                const userRole = await this.userRoleModle.deleteUserRole(role_id);
+                const result = JSON.parse( await this.userRoleModle.deleteUserRole(role_id) );
                 res.status(200).json({
                     message: "Success when call api deleteUserRole",
                     success: true,
-                    data: userRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
@@ -89,9 +89,9 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 }
 

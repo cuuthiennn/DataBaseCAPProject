@@ -3,7 +3,9 @@ const router = express.Router()
 const WorkingRoleController = require('../controller/WorkingRoleController')
 const workingRoleController = new WorkingRoleController()
 
-router.route('/getAllRole').get(workingRoleController.getAllWorkingRole)
+router.route('/getPathById/:id').get(workingRoleController.getPathById)
+
+router.route('/getWorkingRoleChileById/:id').get(workingRoleController.getWorkingRoleChileById)
 
 router.route('/createRole/:path_name.:role_parent_id').post(workingRoleController.createWorkingRole)
 

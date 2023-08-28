@@ -8,7 +8,7 @@ class UserController{
     }
 
     getAllUser = async (req, res) => {
-        if(this.sessionService.isExist(req)) {
+       // if(this.sessionService.isExist(req)) {
             try {
                 const result =JSON.parse(await this.userModle.getAllUser()).recordsets;
                 res.status(200).json({
@@ -18,18 +18,18 @@ class UserController{
                 })
             } catch (error) {
                 res.status(404).json({
-                    message: "Failed when call api getAllUser",
+                    message: "Failed when call api getAllUser"+ error.message,
                     success: false,
                     data: null,
                 })
             }
-        } else {
+        // } else {
             
-        }
+        // }
     };
 
     getUserById = async (req, res) => {
-        if(this.sessionService.isExist(req)) {
+        //if(this.sessionService.isExist(req)) {
             try {
                 const result = JSON.parse(await this.userModle.getUserById(req.params.id)).recordset;
                 res.status(200).json({
@@ -44,13 +44,13 @@ class UserController{
                     data: null,
                 })
             }
-        } else {
+        // } else {
             
-        }
+        // }
     };
 
     create = async (req, res) => {
-        if(this.sessionService.isExist(req)){
+        //if(this.sessionService.isExist(req)){
             try {
                 const result = JSON.parse(await this.userModle.createUser(req.body)).recordsets;
                 res.status(200).json({
@@ -65,11 +65,11 @@ class UserController{
                     data: null,
                 })
             }
-        }
+        //}
     };
 
     update = async (req, res) => {
-        if(this.sessionService.isExist(req)) {
+        // if(this.sessionService.isExist(req)) {
             try {
                 const result = JSON.parse(await this.userModle.updateUser(req.params.id, req.body)).recordset;
                 res.status(200).json({
@@ -84,16 +84,18 @@ class UserController{
                     data: null,
                 })
             }
-        }
+        // }
     };
 
-    deleteUser = (req, res) => {
-        if (this.sessionService.isExist(req)) {
+    delete = async (req, res) => {
+        //if (this.sessionService.isExist(req)) {
+            const user_id = req.params.id;
             try {
-                const result = this.userModle.deleteUser(req.params.id);
+                const result = JSON.parse( await this.userModle.delete(user_id)).recordset;
             res.status(200).json({
                 message: "Success when call api deleteUser",
                 success: true,
+                data: result
             });
             } catch (error) {
                 
@@ -102,7 +104,7 @@ class UserController{
                 success: false,
             })
             }
-        }
+        //}
     };
 
     login = async (req, res) => {

@@ -8,7 +8,7 @@ class WorkingRoleController {
     }
 
     createWorkingRole = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const {path_name, role_parent_id} = req.params;
                 const workingRole = await this.userRoleModle.createUserRole(path_name, role_parent_id);
@@ -24,41 +24,65 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
-    getAllWorkingRole = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+    getPathById = async (req, res) => {
+        //if (this.sessionService.isExist(req)) {
+            const user_id = req.params.id;
             try {
-                const workingRole = await this.workingRoleModle.getAllWorkingRole();
+                const result = JSON.parse(await this.workingRoleModle.getPathById(user_id)).recordset;
+                if(workingRole.length == 0) throw new Error('Working role not found')
                 res.status(200).json({
-                    message: "Success when call api getAllWorkingRole",
+                    message: "Success when call api getPathById",
                     success: true,
-                    data: workingRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
-                    message: "Error when call api getAllWorkingRole: "+error.message,
+                    message: "Error when call api getPathById: "+error.message,
                     success: false,
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
+    getWorkingRoleChileById = async (req, res) => {
+        //if (this.sessionService.isExist(req)) {
+            const user_id = req.params.id;
+            try {
+                const result = JSON.parse(await this.workingRoleModle.getWorkingRoleChileById(user_id)).recordset;
+                res.status(200).json({
+                    message: "Success when call api getWorkingRoleChileById",
+                    success: true,
+                    data: result
+                });
+            } catch (error) {
+                res.status(404).json({
+                    message: "Error when call api getWorkingRoleChileById: "+error.message,
+                    success: false,
+                    data: null
+                });
+            }
+        // } else {
+            
+        // }
+    };
+
     updateWorkingRole = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const {id, path_name, role_parent_id} = req.params;
-                const workingRole = await this.workingRoleModle.updateWorkingRole(id, path_name, role_parent_id);
+                const result = await this.workingRoleModle.updateWorkingRole(id, path_name, role_parent_id);
                 res.status(200).json({
                     message: "Success when call api updateWorkingRole",
                     success: true,
-                    data: workingRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
@@ -67,20 +91,20 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 
     deleteWorkingRole = async (req, res) => {
-        if (this.sessionService.isExist(req)) {
+        // if (this.sessionService.isExist(req)) {
             try {
                 const {id} = req.params;
-                const workingRole = await this.workingRoleModle.deleteWorkingRole(id);
+                const result = await this.workingRoleModle.deleteWorkingRole(id);
                 res.status(200).json({
                     message: "Success when call api deleteWorkingRole",
                     success: true,
-                    data: workingRole
+                    data: result
                 });
             } catch (error) {
                 res.status(404).json({
@@ -89,9 +113,9 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        } else {
+        // } else {
             
-        }
+        // }
     }
 }
 

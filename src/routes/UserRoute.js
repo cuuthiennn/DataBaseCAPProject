@@ -15,9 +15,8 @@ router.route('/create').post(userController.create);
 
 router.route('/update/:id').put(userController.update);
 
-router.route('/delete/:id').delete(userController.deleteUser);
+router.route('/delete/:id').delete(userController.delete);
 
 router.route('/logout').post(userController.logout);
-
 
 module.exports = router;
