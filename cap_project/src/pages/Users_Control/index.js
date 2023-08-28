@@ -11,10 +11,10 @@ const user = (id, username, password, firstName, lastName, birthday, email, gend
 
 const rows = [
   user(1, 'user1', '1231', 'First_1', 'Last_1', '11-06-2003', 'email_1@example.com', true, '123-456-01', 'ADMIN'),
-  user(2, 'user2', '1232', 'First_2', 'Last_2', '12-06-2003', 'email_2@example.com', false, '123-456-02', 'HR'),
-  user(3, 'user3', '1233', 'First_3', 'Last_3', '13-06-2003', 'email_3@example.com', true, '123-456-03', 'MARKETING'),
-  user(4, 'user4', '1234', 'First_4', 'Last_4', '14-06-2003', 'email_4@example.com', false, '123-456-04', 'IT'),
-  user(5, 'user5', '1235', 'First_5', 'Last_5', '15-06-2003', 'email_5@example.com', true, '123-456-05', 'SEO'),
+  user(2, 'user2', '1232', 'First_2', 'Last_2', '12-06-2003', 'email_2@example.com', false, '123-456-02', 'USER'),
+  user(3, 'user3', '1233', 'First_3', 'Last_3', '13-06-2003', 'email_3@example.com', true, '123-456-03', 'USER'),
+  user(4, 'user4', '1234', 'First_4', 'Last_4', '14-06-2003', 'email_4@example.com', false, '123-456-04', 'USER'),
+  user(5, 'user5', '1235', 'First_5', 'Last_5', '15-06-2003', 'email_5@example.com', true, '123-456-05', 'USER'),
 ];
 
 function Users_Control() {
@@ -37,11 +37,8 @@ function Users_Control() {
   const handleEditUserFromModal = (user) => {
     let cloneListUsers = _.cloneDeep(listUsers);
     let index = listUsers.findIndex((item) => item.id === user.id);
-    user.array.forEach((element) => {
-      console.log(element);
-    });
-    // cloneListUsers[index].firstName = user.firstName;
-    // cloneListUsers[index].role = user.role;
+    cloneListUsers[index].firstName = user.firstName;
+    cloneListUsers[index].role = user.role;
     setListUsers(cloneListUsers);
   };
 

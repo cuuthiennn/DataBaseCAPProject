@@ -202,12 +202,8 @@ const ModelAddNew = (props) => {
                   <Form.Select id="role" onChange={(event) => setRole(event.target.value)}>
                     <option>Choose Role</option>
                     <option value="ADMIN">Admin</option>
-                    <option value="SALE">Sale</option>
-                    <option value="SALE">SEO</option>
-                    <option value="IT">IT</option>
-                    <option value="MARKETING">Marketing</option>
-                    <option value="HR">HR</option>
-                    <option value="PM">PM</option>
+                    <option value="USER">User</option>
+                    <option value="GUEST">Guest</option>
                   </Form.Select>
                 </div>
               </Col>

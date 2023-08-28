@@ -1,94 +1,56 @@
-import { TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button } from 'react-bootstrap';
+import RoleTree from './RoleTree';
 import { useEffect, useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
-import ModalAddRole from './ModalAddRole';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
+import ModalAddNew from './ModalAddNew';
 
-const columns = [
-  { id: 'id', label: 'ID', minWidth: 50 },
-  { id: 'name', label: 'Name', minWidth: 50 },
-  { id: 'description', label: 'Description', minWidth: 250 },
-  { id: 'executor', label: 'Executor', minWidth: 50 },
-  { id: 'timeChange', label: 'Time Change', minWidth: 50 },
-  { id: 'numberOfUsers', label: 'Number of Users', minWidth: 50 },
-  // { id: 'action', label: 'Action', minWidth: 50 },
-];
-
-function createData(id, name, description, executor, timeChange, numberOfUsers) {
-  return { id, name, description, executor, timeChange, numberOfUsers };
+function model_workingRole(id, name, parent) {
+  return { id, name, parent };
 }
 
 const rows = [
-  createData(1, 'IT', 'Description IT', 'Duong Vu', '08:00', 15),
-  createData(2, 'Seo', 'Description Seo', 'Duong Vu', '08:00', 15),
-  createData(3, 'Marketing', 'Description Marketing', 'Duong Vu', '08:00', 15),
-  createData(4, 'HR', 'Description HR', 'Duong Vu', '08:00', 15),
-  createData(5, 'PM', 'Description PM', 'Duong Vu', '08:00', 15),
+  model_workingRole(1, 'VietNam', null),
+  model_workingRole(2, 'Finance', 1),
+  model_workingRole(3, 'Marketing', 1),
+  model_workingRole(4, 'NAV', 2),
+  model_workingRole(5, 'Sale', 3),
+  model_workingRole(6, 'VietNam', null),
 ];
 
 function Working_Role() {
-  const [listWorkingRoles, setListWorkingRoles] = useState([]);
+  const [listWorkingRole, setListWorkingRole] = useState([]);
 
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
-
-  const handleUpdateTable = (role) => {};
+  const [level, setLevel] = useState(0);
 
   useEffect(() => {
-    setListWorkingRoles(rows);
+    setListWorkingRole(rows);
   }, []);
+
+  const handleAddWorkingRole = (path) => {
+    path.map((i, index) => {});
+  };
 
   return (
     <>
       <div className="mb-3 d-flex justify-content-between align-items-center">
-        <span className="fw-bold h5">List User</span>
-        <Button variant="secondary" onClick={() => setIsShowModalAddNew(true)}>
-          Add New User
+        <span className="fw-bold h5">Working Roles</span>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setIsShowModalAddNew(true);
+          }}
+        >
+          Add New Working Role
         </Button>
       </div>
-      <TableContainer>
-        <Table variant="dark">
-          <TableHead>
-            <TableRow>
-              {columns.map((column, i) => (
-                <TableCell key={`column-${i}`} align={column.align} style={{ top: 57, minWidth: column.minWidth }}>
-                  {column.label}
-                </TableCell>
-              ))}
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {listWorkingRoles.map((row) => {
-              return (
-                <TableRow hover tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
-                      </TableCell>
-                    );
-                  })}
-                  <TableCell>
-                    <Button variant="warning" className="me-2" onClick={() => {}}>
-                      <FontAwesomeIcon icon={faPen} />
-                    </Button>
-                    <Button variant="danger" onClick={() => {}}>
-                      <FontAwesomeIcon icon={faXmark} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="container-fluid">
+        <RoleTree roleId={null} />
+      </div>
 
-      <ModalAddRole
+      <ModalAddNew
         show={isShowModalAddNew}
         handleClose={() => setIsShowModalAddNew(false)}
-        handleUpdateTable={handleUpdateTable}
+        handleAddWorkingRole={handleAddWorkingRole}
       />
     </>
   );
