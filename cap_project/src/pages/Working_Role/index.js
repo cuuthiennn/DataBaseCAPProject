@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
-import RoleTree from './RoleTree';
 import { useEffect, useState } from 'react';
 import ModalAddNew from './ModalAddNew';
+import DropDownTree from './DropDownTree';
 
 function model_workingRole(id, name, parent) {
   return { id, name, parent };
@@ -13,21 +13,20 @@ const rows = [
   model_workingRole(3, 'Marketing', 1),
   model_workingRole(4, 'NAV', 2),
   model_workingRole(5, 'Sale', 3),
-  model_workingRole(6, 'VietNam', null),
+  model_workingRole(6, 'USA', null),
 ];
 
 function Working_Role() {
   const [listWorkingRole, setListWorkingRole] = useState([]);
 
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
-  const [level, setLevel] = useState(0);
 
   useEffect(() => {
     setListWorkingRole(rows);
   }, []);
 
-  const handleAddWorkingRole = (path) => {
-    path.map((i, index) => {});
+  const handleAddWorkingRole = (role) => {
+    setListWorkingRole([...listWorkingRole, ...role]);
   };
 
   return (
@@ -44,7 +43,7 @@ function Working_Role() {
         </Button>
       </div>
       <div className="container-fluid">
-        <RoleTree roleId={null} />
+        <DropDownTree data={listWorkingRole} />
       </div>
 
       <ModalAddNew

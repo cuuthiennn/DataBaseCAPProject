@@ -1,27 +1,22 @@
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-const ModalAddNew = (props) => {
-  const { show, handleClose, handleAddWorkingRole } = props;
+const EditWorkingRole = (props) => {
+  const { show, handleClose, hanleEditWorkingRole, data } = props;
 
-  const [path, setPath] = useState([]);
   const [name, setName] = useState('');
   const [showInput, setShowInput] = useState(false);
+  const [childrentName, setChildrentName] = useState('');
+  const [path, setPath] = useState([]);
 
-  const handleAddPath = () => {
-    if (name) {
-      setPath([...path, name]);
-      setName('');
-      setShowInput(false);
-    }
-  };
-
-  const handleRemove = () => {
-    setShowInput(false);
-    setName('');
+  const handleSaveUser = () => {
+    data.name = name;
+    hanleEditWorkingRole(data);
+    toast.success('Edt working role successfully');
+    handleClose(false);
   };
 
   const handleKeyPress = (event) => {
@@ -30,15 +25,19 @@ const ModalAddNew = (props) => {
     }
   };
 
-  const handleSaveUser = () => {
-    handleAddWorkingRole([
-      { id: 7, name: 'Canada', parent: null },
-      { id: 8, name: 'Marketing', parent: 7 },
-      { id: 9, name: 'Finance', parent: 7 },
-    ]);
-    handleClose(false);
-    toast.success('Add new Working Role successfully ');
+  const handleAddPath = () => {
+    if (name) {
+      setPath([...path, childrentName]);
+      setChildrentName('');
+      setShowInput(false);
+    }
   };
+
+  useEffect(() => {
+    if (show) {
+      setName(data.name);
+    }
+  }, [show, data]);
 
   return (
     <>
@@ -47,6 +46,21 @@ const ModalAddNew = (props) => {
           <Modal.Title>Add New Working Role</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <form action="">
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </div>
+          </form>
+          <hr />
           <div className="d-flex align-items-center">
             {path.map((namePath, index) => {
               return (
@@ -62,11 +76,17 @@ const ModalAddNew = (props) => {
                   type="text"
                   placeholder="Nhập tên..."
                   className="me-1 ms-1"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={childrentName}
+                  onChange={(e) => setChildrentName(e.target.value)}
                   onKeyDown={handleKeyPress}
                 />
-                <button className="btn btn-sm" onClick={handleRemove}>
+                <button
+                  className="btn btn-sm"
+                  onClick={() => {
+                    setShowInput(false);
+                    setChildrentName('');
+                  }}
+                >
                   <FontAwesomeIcon icon={faMinus} />
                 </button>
               </>
@@ -90,4 +110,4 @@ const ModalAddNew = (props) => {
   );
 };
 
-export default ModalAddNew;
+export default EditWorkingRole;

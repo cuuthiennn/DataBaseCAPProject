@@ -1,0 +1,17 @@
+.dropDownTree {
+  list-style: none;
+  li {
+    .nameRole {
+      .btn-dropdown {
+        color: var(--text);
+      }
+
+      label {
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
