@@ -1,10 +1,12 @@
 const fileModle = require('../models/FileModle');
 const SessionService = require('../services/sessionService');
+const GoogleAPIConfig = require('../config/googleapis');
 
 class FileController {
     constructor() {
         this.fileModle = new fileModle();
         this.sessionService = new SessionService();
+        this.googleAPIConfig = new GoogleAPIConfig();
     }
 
     addFile = async (req, res) => {
@@ -107,6 +109,27 @@ class FileController {
 
         // }
     }
+
+    addDriveFile = async (req, res) => {
+        const { file, fileParentName } = req.params;
+        try{
+            const fileParentId = await this.googleAPIConfig.getParentFileId(fileParentName);
+            const result = await JSON.parse( await this.googleAPIConfig.uploadFile(file, fileParentId) );
+            res.status(200).json({
+                message: "File updated successfully",
+                success: true,
+                data: result
+            })
+        } catch (error) {
+            res.status(404).json({
+                message: "Error when call api addDriveFile: "+error.message,
+                success: false,
+                data: null
+            });
+        }
+    }
+
+
 }
 
 module.exports = FileController;
