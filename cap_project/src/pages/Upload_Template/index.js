@@ -1,5 +1,9 @@
 function Upload_Template() {
-  return <></>;
+  return (
+    <>
+      <form></form>
+    </>
+  );
 }
 
 export default Upload_Template;
