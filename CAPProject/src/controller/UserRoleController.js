@@ -8,7 +8,7 @@ class UserRoleCotroller {
     }
 
     createUserRole = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const role_name = req.params.role_name;
                 const result = JSON.parse( await this.userRoleModle.createUserRole(role_name) );
@@ -24,13 +24,11 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 
     getAllUserRole = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const result = JSON.parse( await this.userRoleModle.getAllUserRole() );
                 res.status(200).json({
@@ -45,13 +43,11 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 
     updateUserRole = async(req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const {role_id, role_name} = req.params;
                 const result = JSON.parse( await this.userRoleModle.updateUserRole(role_id, role_name) );
@@ -67,13 +63,11 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 
     deleteUserRole = async(req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const role_id = req.params.role_id;
                 const result = JSON.parse( await this.userRoleModle.deleteUserRole(role_id) );
@@ -89,9 +83,7 @@ class UserRoleCotroller {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 }
 

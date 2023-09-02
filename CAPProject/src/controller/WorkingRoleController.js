@@ -8,7 +8,7 @@ class WorkingRoleController {
     }
 
     createWorkingRole = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const {path_name, role_parent_id} = req.params;
                 const workingRole = await this.userRoleModle.createUserRole(path_name, role_parent_id);
@@ -24,13 +24,11 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 
     getPathById = async (req, res) => {
-        //if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             const user_id = req.params.id;
             try {
                 const result = JSON.parse(await this.workingRoleModle.getPathById(user_id)).recordset;
@@ -47,13 +45,11 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 
     getWorkingRoleChileById = async (req, res) => {
-        //if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             const user_id = req.params.id;
             try {
                 const result = JSON.parse(await this.workingRoleModle.getWorkingRoleChileById(user_id)).recordset;
@@ -69,13 +65,11 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     };
 
     updateWorkingRole = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const {id, path_name, role_parent_id} = req.params;
                 const result = await this.workingRoleModle.updateWorkingRole(id, path_name, role_parent_id);
@@ -91,13 +85,11 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 
     deleteWorkingRole = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const {id} = req.params;
                 const result = await this.workingRoleModle.deleteWorkingRole(id);
@@ -113,9 +105,7 @@ class WorkingRoleController {
                     data: null
                 });
             }
-        // } else {
-            
-        // }
+        }
     }
 }
 

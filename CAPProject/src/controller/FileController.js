@@ -1,6 +1,7 @@
 const fileModle = require('../models/FileModle');
 const SessionService = require('../services/sessionService');
-const GoogleAPIConfig = require('../config/googleapis');
+const GoogleAPIConfig = require('../services/googleapis');
+const multer = require('multer');
 
 class FileController {
     constructor() {
@@ -10,7 +11,7 @@ class FileController {
     }
 
     addFile = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const file = {
                     "user_id": req.params.user_id,
@@ -33,13 +34,11 @@ class FileController {
                     data: null
                 })
             }
-        // } else {
-            
-        // }
+        }
     };
 
     getAllFile = async (req, res) => {
-        // if (this.sessionService.isExist(red)) {
+        if (this.sessionService.isExist(red)) {
             try {
                 const user_id = req.params.id;
                 const result = JSON.parse( await this.fileModle.getAllFile(user_id) );
@@ -55,13 +54,11 @@ class FileController {
                     data: null
                 })
             }
-        // } else {
-            
-        // }
+        }
     };
 
     deleteFile = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const {file_id, user_id} = req.params;
                 const result = JSON.parse( await this.fileModle.deleteFile(file_id, user_id) );
@@ -77,13 +74,11 @@ class FileController {
                     data: null
                 })
             }
-        // } else {
-            
-        // }
+        }
     }
 
     updateFile = async (req, res) => {
-        // if (this.sessionService.isExist(req)) {
+        if (this.sessionService.isExist(req)) {
             try {
                 const file = {
                     "id": req.params.id,
@@ -105,30 +100,50 @@ class FileController {
                     data: null
                 })
             }
-        // } else {
-
-        // }
-    }
-
-    addDriveFile = async (req, res) => {
-        const { file, fileParentName } = req.params;
-        try{
-            const fileParentId = await this.googleAPIConfig.getParentFileId(fileParentName);
-            const result = await JSON.parse( await this.googleAPIConfig.uploadFile(file, fileParentId) );
-            res.status(200).json({
-                message: "File updated successfully",
-                success: true,
-                data: result
-            })
-        } catch (error) {
-            res.status(404).json({
-                message: "Error when call api addDriveFile: "+error.message,
-                success: false,
-                data: null
-            });
         }
     }
 
+    addFileToDrive = async (req, res) => {
+        if (this.sessionService.isExist(req)) {
+            const { fileParentName } = req.params;
+            const file = req.file;
+            try{
+                const fileParentId = await this.googleAPIConfig.getParentFileId(fileParentName);
+                const result = JSON.parse( await this.googleAPIConfig.uploadFile(file, fileParentId) );
+                res.status(200).json({
+                    message: "File updated successfully",
+                    success: true,
+                    data: result
+                })
+            } catch (error) {
+                res.status(404).json({
+                    message: "Error when call api addDriveFile: "+error.message,
+                    success: false,
+                    data: null
+                });
+            }
+        }
+    }
+
+    createFolderToDrive = async(req, res) => {
+        if (this.sessionService.isExist(req)) {
+            const path = req.body.path;
+            try {
+                const result = await this.googleAPIConfig.createFolderByPath(path);
+                res.status(200).json({
+                    message: "Folder created successfully",
+                    success: true,
+                    data: result
+                });
+            } catch (error) {
+                res.status(404).json({
+                    message: "Error when call api createFolder: "+error.message,
+                    success: false,
+                    data: null
+                });
+            }
+        }
+    }
 
 }
 
