@@ -17,31 +17,41 @@ const ModelAddNew = (props) => {
   const [role, setRole] = useState('');
 
   const handleSaveUser = async () => {
-    let res = await postCreateUser(username, password);
-    if (res && res.id) {
-      setUsername('');
-      setPassword('');
-      setFirstName('');
-      setLastName('');
-      setBirthday('');
-      setEmail('');
-      setGender(true);
-      setPhone('');
-      setRole('');
-      toast.success('Create User Successfully');
-      handleUpdateTable({
-        username: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        birthday: birthday,
-        email: email,
-        gender: gender,
-        phone: phone,
-        role: role,
-      });
-      handleClose(false);
-    }
+    let res = await postCreateUser({
+      user_name: username,
+      password: password,
+      first_name: firstName,
+      last_name: lastName,
+      birthday: birthday,
+      email: email,
+      gender: gender,
+      phone: phone,
+    });
+    console.log(res);
+    // if (res && res.id) {
+    //   setUsername('');
+    //   setPassword('');
+    //   setFirstName('');
+    //   setLastName('');
+    //   setBirthday('');
+    //   setEmail('');
+    //   setGender(true);
+    //   setPhone('');
+    //   setRole('');
+    //   toast.success('Create User Successfully');
+    //   handleUpdateTable({
+    //     user_name: username,
+    //     password: password,
+    //     first_name: firstName,
+    //     last_name: lastName,
+    //     birthday: birthday,
+    //     email: email,
+    //     gender: gender,
+    //     phone: phone,
+    //     role: role,
+    //   });
+    //   handleClose(false);
+    // }
   };
 
   return (

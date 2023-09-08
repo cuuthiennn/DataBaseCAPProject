@@ -6,6 +6,9 @@ const session = require('./src/config/session');
 const port = process.env.PORT || 3001;
 require('./src/config/database')
 
+var cors = require('cors')
+app.use(cors())
+
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());

@@ -1,12 +1,12 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import * as XLSX from 'xlsx';
 
 function Upload_File() {
   // Onchange states
   const [excelFile, setExcelFile] = useState(null);
-  const [typeError, setTypeError] = useState(null);
 
   // Submit state
   const [excelData, setExcelData] = useState(null);
@@ -21,14 +21,13 @@ function Upload_File() {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
       if (selectedFile && fileTypes.includes(selectedFile.type)) {
-        setTypeError(null);
         let reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
         reader.onloadend = (e) => {
           setExcelFile(e.target.result);
         };
       } else {
-        setTypeError('Please select only excel file type');
+        toast.error('Please select only excel file type');
         setExcelFile(null);
       }
     } else {
@@ -88,11 +87,6 @@ function Upload_File() {
         <button type="submit" className="btn btn-light mb-3">
           Upload
         </button>
-        {typeError && (
-          <div className="alert alert-info" role="alert">
-            {typeError}
-          </div>
-        )}
       </form>
 
       {/* View data */}

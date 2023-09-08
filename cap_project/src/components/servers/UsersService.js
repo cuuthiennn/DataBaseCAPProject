@@ -1,19 +1,27 @@
-import api from "./axiosConfig";
+import api from './axiosConfig';
 
-const fetchAllUser = (page) => {
-  return api.get(`/api/users?page=${page}`);
+const fetchAllUser = () => {
+  return api.get(`/user/getAllUser`);
 };
 
-const postCreateUser = (name, job) => {
-  return api.post("/api/users", { name, job });
+const postCreateUser = ({ user }) => {
+  // return api({
+  //   method: 'POST',
+  //   url: 'user/create',
+  //   data: {
+  //     user,
+  //   },
+  // });
+  return api.post('/user/create', { user });
 };
 
-const putUpdateUser = (id, name, job) => {
-  return api.put(`/api/users/${id}`, { name, job });
+//
+const putUpdateUser = (id, { user }) => {
+  return api.put(`/user/update/${id}`, { user });
 };
 
 const deleteUser = (id) => {
-  return api.delete(`/api/users/${id}`);
+  return api.delete(`/user/delete/${id}`);
 };
 
 export { fetchAllUser, postCreateUser, putUpdateUser, deleteUser };

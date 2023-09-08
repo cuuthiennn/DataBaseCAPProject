@@ -4,18 +4,7 @@ import _ from 'lodash';
 import ModelAddNew from '~/components/Layout/components/modalAddNew';
 import ModalEditUser from '~/components/Layout/components/modalEditUser';
 import ModalDeleteUser from '~/components/Layout/components/modalDeleteUser';
-
-const user = (id, username, password, firstName, lastName, birthday, email, gender, phone, role) => {
-  return { id, username, password, firstName, lastName, birthday, email, gender, phone, role };
-};
-
-const rows = [
-  user(1, 'user1', '1231', 'First_1', 'Last_1', '11-06-2003', 'email_1@example.com', true, '123-456-01', 'ADMIN'),
-  user(2, 'user2', '1232', 'First_2', 'Last_2', '12-06-2003', 'email_2@example.com', false, '123-456-02', 'USER'),
-  user(3, 'user3', '1233', 'First_3', 'Last_3', '13-06-2003', 'email_3@example.com', true, '123-456-03', 'USER'),
-  user(4, 'user4', '1234', 'First_4', 'Last_4', '14-06-2003', 'email_4@example.com', false, '123-456-04', 'USER'),
-  user(5, 'user5', '1235', 'First_5', 'Last_5', '15-06-2003', 'email_5@example.com', true, '123-456-05', 'USER'),
-];
+import { fetchAllUser } from '~/components/servers/UsersService';
 
 function Users_Control() {
   const [listUsers, setListUsers] = useState([]);
@@ -51,8 +40,17 @@ function Users_Control() {
 
   // Add all users to list
   useEffect(() => {
-    setListUsers(rows);
+    // setListUsers(rows);
+    getUsers();
   }, []);
+
+  const getUsers = async () => {
+    let res = await fetchAllUser();
+    if (res && res.data) {
+      setListUsers(res.data[0]);
+    }
+    console.log(res.data[0]);
+  };
 
   return (
     <section className="">
@@ -83,9 +81,9 @@ function Users_Control() {
               return (
                 <tr key={`users-${index}`}>
                   <td>{item.id}</td>
-                  <td>{item.username}</td>
-                  <td>{item.firstName}</td>
-                  <td>{item.lastName}</td>
+                  <td>{item.user_name}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.email}</td>
                   <td>{item.gender ? 'Male' : 'Female'}</td>
                   <td>{item.phone}</td>

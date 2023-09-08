@@ -19,25 +19,25 @@ function ModalEditUser(props) {
   useEffect(() => {
     if (show) {
       setId(dataUserEdit.id);
-      setUsername(dataUserEdit.username);
+      setUsername(dataUserEdit.user_name);
       setPassword(dataUserEdit.password);
-      setFirstName(dataUserEdit.firstName);
-      setLastName(dataUserEdit.lastName);
+      setFirstName(dataUserEdit.first_name);
+      setLastName(dataUserEdit.last_name);
       setBirthday(dataUserEdit.birthday);
       setEmail(dataUserEdit.email);
       setGender(dataUserEdit.gender);
       setPhone(dataUserEdit.phone);
-      setRole(dataUserEdit.role);
+      // setRole(dataUserEdit.role);
     }
   }, [dataUserEdit, show]);
 
   const handleEditUser = () => {
     handleEditUserFromModal({
       id: id,
-      username: username,
+      user_name: username,
       password: password,
-      firstName: firstName,
-      lastName: lastName,
+      first_ame: firstName,
+      last_name: lastName,
       birthday: birthday,
       email: email,
       gender: gender,
