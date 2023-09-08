@@ -12,7 +12,7 @@ class UserRoleCModle {
         const queryCommand = `INSERT INTO user_roles (name) VALUES (@role_name)`;
         const db = pool.request();
         db.input("role_name", role_name);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
 
         return result;
     }
@@ -21,7 +21,7 @@ class UserRoleCModle {
         const queryCommand = `DELETE FROM user_roles OUTPUT deleted.* WHERE id = @role_id`;
         const db = pool.request();
         db.input("role_id", role_id);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         
         return result;
     }
@@ -31,7 +31,7 @@ class UserRoleCModle {
         const db = pool.request();
         db.input("role_id", role_id);
         db.input("role_name", role_name);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         
         return result;
     }

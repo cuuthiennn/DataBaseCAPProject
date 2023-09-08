@@ -46,7 +46,7 @@ class UserController{
     };
 
     create = async (req, res) => {
-        if(this.sessionService.isExist(req)){
+        //if(this.sessionService.isExist(req)){
             try {
                 const result = JSON.parse(await this.userModle.createUser(req.body)).recordsets;
                 res.status(200).json({
@@ -61,7 +61,7 @@ class UserController{
                     data: null,
                 })
             }
-        }
+        //}
     };
 
     update = async (req, res) => {

@@ -21,8 +21,9 @@ class UserModel{
     
     getUserById = async (id) =>{
         const queryCommand = `SELECT * FROM account WHERE id = @id`;
-        pool.input("id", id)
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const db = pool.request();
+        db.input("id", id)
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
     
@@ -38,18 +39,18 @@ class UserModel{
             phone : data.phone || ''
         };
         const db = pool.request();
-        db.input('user_name', newUser.user_name);
-        db.input('password', newUser.password);
-        db.input('first_name', newUser.first_name);
-        db.input('last_name', newUser.last_name);
-        db.input('birthday', newUser.birthday);
-        db.input('email', newUser.email);
-        db.input('gender', newUser.gender);
-        db.input('phone', newUser.phone);
-        queryCommand = `INSERT INTO account (user_name, password, first_name, last_name, birthday, email, gender, phone) OUTPUT inserted.*`
+        db.input("user_name", newUser.user_name);
+        db.input("password", newUser.password);
+        db.input("first_name", newUser.first_name);
+        db.input("last_name", newUser.last_name);
+        db.input("birthday", newUser.birthday);
+        db.input("email", newUser.email);
+        db.input("gender", newUser.gender);
+        db.input("phone", newUser.phone);
+        const queryCommand = `INSERT INTO account (user_name, password, first_name, last_name, birthday, email, gender, phone) OUTPUT inserted.* `
         + `VALUES (@user_name, @password, @first_name, @last_name, @birthday, @email, @gender, @phone)`;
-        pool.input('user_name', newUser)
-        let results = JSON.stringify(await pool.query(queryCommand));
+        console.log(queryCommand);
+        let results = JSON.stringify(await db.query(queryCommand));
         return results;
     }
     
@@ -83,7 +84,7 @@ class UserModel{
                                                 `gender = @gender,`+
                                                 `phone = @phone`+
                                 `OUTPUT inserted.* WHERE id = @id`;
-        const result = JSON.stringify( await pool.query(queryCommand) );
+        const result = JSON.stringify( await db.query(queryCommand) );
         return result;
     }
 
@@ -99,7 +100,7 @@ class UserModel{
                                                         `WHERE id = @id`;
         const db = pool.request();
         db.input("id", id)
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     };
 
@@ -108,7 +109,7 @@ class UserModel{
         const db = pool.request();
         db.input("user_name", data.user_name);
         db.input("password", data.password);
-        const result = JSON.stringify( await pool.query(queryCommand));
+        const result = JSON.stringify( await db.query(queryCommand));
         return result;
     };
 }

@@ -5,7 +5,7 @@ class fileModle {
         const queryCommand = `SELECT * FROM file_history WHERE user_id = @user_id`;
         const db = pool.request();
         db.input("user_id", user_id);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
 
@@ -18,7 +18,7 @@ class fileModle {
         db.input("upload_date", data.upload_date);
         db.input("status", data.status);
         db.input("file_path", data.file_path);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
 
@@ -27,7 +27,7 @@ class fileModle {
         const db = pool.request();
         db.input("id", id);
         db.input("user_id", user_id);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
 
@@ -40,7 +40,7 @@ class fileModle {
         db.input("upload_date", data.upload_date);
         db.input("status", data.status);
         db.input("file_path", data.file_path);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
 }

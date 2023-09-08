@@ -49,7 +49,7 @@ class WorkingRole {
         const queryCommand = `DELETE FROM working_role OUTPUT deleted.* WHERE id = '@id'`;
         const db = pool.request();
         db.input("id", id);
-        const result = JSON.stringify(await pool.query(queryCommand));
+        const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
 }
