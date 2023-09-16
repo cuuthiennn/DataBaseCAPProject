@@ -72,7 +72,7 @@ class WorkingRoleController {
         if (this.sessionService.isExist(req)) {
             try {
                 const {id, path_name, role_parent_id} = req.params;
-                const result = await this.workingRoleModle.updateWorkingRole(id, path_name, role_parent_id);
+                const result = JSON.parse( await this.workingRoleModle.updateWorkingRole(id, path_name, role_parent_id) ).recordset;
                 res.status(200).json({
                     message: "Success when call api updateWorkingRole",
                     success: true,
@@ -92,7 +92,7 @@ class WorkingRoleController {
         if (this.sessionService.isExist(req)) {
             try {
                 const {id} = req.params;
-                const result = await this.workingRoleModle.deleteWorkingRole(id);
+                const result = JSON.parse( await this.workingRoleModle.deleteWorkingRole(id) ).recordset;
                 res.status(200).json({
                     message: "Success when call api deleteWorkingRole",
                     success: true,

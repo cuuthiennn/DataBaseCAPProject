@@ -7,10 +7,10 @@ class WorkingRole {
                             `,[path_name]`+
                             `,[role_parent_id]`+
                             `,[Path]`+
-                            `FROM [CAPProject].[dbo].[WorkingRoleHierarchy]`+
-                            `WHERE id = @id`;
+                            ` FROM [CAPProject].[dbo].[WorkingRoleHierarchy]`+
+                            ` WHERE id = @id`;
         const db = pool.request();
-        db.input('id', id);
+        db.input("id", id);
         const result = JSON.stringify(await db.query(queryCommand));
         return result;
     }
@@ -18,7 +18,7 @@ class WorkingRole {
     getWorkingRoleChileById = async (id) => {
         const queryCommand = `SELECT * FROM working_role WHERE role_parent_id  = @id`
         const db = pool.request();
-        db.input('id', id);
+        db.input("id", id);
         const result = JSON.stringify(await db.query(queryCommand));
         return result;
     };
@@ -34,7 +34,7 @@ class WorkingRole {
     }
 
     updateRole = async (id, path_name, role_parent_id) => {
-        const queryCommand = `UPDATE working_role SET path_name = '@path_name', role_parent_id = '@role_parent_id' OUTPUT inserted.*`
+        const queryCommand = `UPDATE working_role SET path_name = '@path_name', role_parent_id = '@role_parent_id' OUTPUT inserted.* `
                             +`WHERE id = '@id'`;
         const db = pool.request();
         db.input("id", id);

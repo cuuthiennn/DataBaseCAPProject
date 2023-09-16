@@ -20,7 +20,7 @@ class FileController {
                     "status": req.params.status,
                     "file_path": req.params.file_path,
                 }
-                const result = JSON.parse( await this.fileModle.addFile(file) );
+                const result = JSON.parse( await this.fileModle.addFile(file) ).recordset;
     
                 res.status(200).json({
                     message: "File added successfully",
@@ -41,7 +41,7 @@ class FileController {
         if (this.sessionService.isExist(red)) {
             try {
                 const user_id = req.params.id;
-                const result = JSON.parse( await this.fileModle.getAllFile(user_id) );
+                const result = JSON.parse( await this.fileModle.getAllFile(user_id) ).recordset;
                 res.status(200).json({
                     message: "File added successfully",
                     success: true,
@@ -61,7 +61,7 @@ class FileController {
         if (this.sessionService.isExist(req)) {
             try {
                 const {file_id, user_id} = req.params;
-                const result = JSON.parse( await this.fileModle.deleteFile(file_id, user_id) );
+                const result = JSON.parse( await this.fileModle.deleteFile(file_id, user_id) ).recordset;
                 res.status(200).json({
                     message: "File deleted successfully",
                     success: true,
@@ -87,7 +87,7 @@ class FileController {
                     "upload_date": req.params.upload_date,
                     "status": req.params.status,
                 }
-                const result = JSON.parse( await this.fileModle.updateFile(file) );
+                const result = JSON.parse( await this.fileModle.updateFile(file) ).recordset;
                 res.status(200).json({
                     message: "File updated successfully",
                     success: true,

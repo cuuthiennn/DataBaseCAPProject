@@ -11,7 +11,7 @@ class UserRoleCotroller {
         if (this.sessionService.isExist(req)) {
             try {
                 const role_name = req.params.role_name;
-                const result = JSON.parse( await this.userRoleModle.createUserRole(role_name) );
+                const result = JSON.parse( await this.userRoleModle.createUserRole(role_name) ).recordset;
                 res.status(200).json({
                     message: "Success when call api createUserRole",
                     success: true,
@@ -30,7 +30,7 @@ class UserRoleCotroller {
     getAllUserRole = async (req, res) => {
         if (this.sessionService.isExist(req)) {
             try {
-                const result = JSON.parse( await this.userRoleModle.getAllUserRole() );
+                const result = JSON.parse( await this.userRoleModle.getAllUserRole() ).recordset;
                 res.status(200).json({
                     message: "Success when call api getAllUserRole",
                     success: true,
@@ -50,7 +50,7 @@ class UserRoleCotroller {
         if (this.sessionService.isExist(req)) {
             try {
                 const {role_id, role_name} = req.params;
-                const result = JSON.parse( await this.userRoleModle.updateUserRole(role_id, role_name) );
+                const result = JSON.parse( await this.userRoleModle.updateUserRole(role_id, role_name) ).recordset;
                 res.status(200).json({
                     message: "Success when call api updateUserRole",
                     success: true,
@@ -70,7 +70,7 @@ class UserRoleCotroller {
         if (this.sessionService.isExist(req)) {
             try {
                 const role_id = req.params.role_id;
-                const result = JSON.parse( await this.userRoleModle.deleteUserRole(role_id) );
+                const result = JSON.parse( await this.userRoleModle.deleteUserRole(role_id) ).recordset;
                 res.status(200).json({
                     message: "Success when call api deleteUserRole",
                     success: true,

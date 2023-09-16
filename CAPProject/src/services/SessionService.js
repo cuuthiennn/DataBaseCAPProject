@@ -8,13 +8,14 @@ class SessionService {
     }
     
     setSession = (req, id, user_name) =>{
-        req.session.user.id = id;
-        req.session.user.user_name = user_name;
+        req.session.user = {
+            id: id,
+            user_name: user_name
+        }
     }
 
     deleteSession = (req) => {
-        delete req.session.user.id;
-        delete req.session.user.user_name;
+        req.session.destroy();
     }
 }
 

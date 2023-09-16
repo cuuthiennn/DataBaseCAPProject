@@ -11,7 +11,7 @@ class fileModle {
 
     addFile = async (data) => {
         const queryCommand = `INSERT INTO file_history (user_id, file_name, upload_date, status, file_path)`+
-        `OUTPUT inserted.* VALUES (@user_id, @file_name, @upload_date, @status, @file_path)`;
+        ` OUTPUT inserted.* VALUES (@user_id, @file_name, @upload_date, @status, @file_path)`;
         const db = pool.request();
         db.input("user_id", data.user_id);
         db.input("file_name", data.file_name);

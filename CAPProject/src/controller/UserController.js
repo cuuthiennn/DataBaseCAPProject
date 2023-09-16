@@ -10,7 +10,7 @@ class UserController{
     getAllUser = async (req, res) => {
         if(this.sessionService.isExist(req)) {
             try {
-                const result =JSON.parse(await this.userModle.getAllUser()).recordsets;
+                const result =JSON.parse(await this.userModle.getAllUser()).recordset;
                 res.status(200).json({
                     message: "Success when call api getAllUser",
                     success: true,
@@ -46,7 +46,7 @@ class UserController{
     };
 
     create = async (req, res) => {
-        //if(this.sessionService.isExist(req)){
+        if(this.sessionService.isExist(req)){
             try {
                 const result = JSON.parse(await this.userModle.createUser(req.body)).recordsets;
                 res.status(200).json({
@@ -61,7 +61,7 @@ class UserController{
                     data: null,
                 })
             }
-        //}
+        }
     };
 
     update = async (req, res) => {
@@ -110,8 +110,9 @@ class UserController{
                 password: req.params.password
             }
             const result = JSON.parse(await this.userModle.login(user)).recordset;
+            console.log(result[0].id);
             if(result) {
-                this.sessionService.setSession(req, result[0].id, result[0].user_name)
+                await this.sessionService.setSession(req, result[0].id, result[0].user_name)
                 res.status(200).json({
                     message: "Success when call api login",
                     success: true,
@@ -127,7 +128,7 @@ class UserController{
 
     register = async (req, res) => {
         try {
-            const result = JSON.parse(await this.userModle.createUser(req.params.id, req.body)).recordset;
+            const result = JSON.parse(await this.userModle.createUser(req.body)).recordset;
             res.status(200).json({
                 message: "Success when call api register",
                 success: true,
