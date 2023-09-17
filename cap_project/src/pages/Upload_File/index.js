@@ -43,10 +43,7 @@ function Upload_File() {
       const worksheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[worksheetName];
       const data = XLSX.utils.sheet_to_json(worksheet);
-      const cellValues = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       setExcelData(data.slice(0, 10));
-      console.log(data);
-      console.log(cellValues);
     }
   };
 
@@ -93,7 +90,7 @@ function Upload_File() {
       {excelData ? (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
+            <Table stickyheader="true" aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   {Object.keys(excelData[0]).map((key) => (

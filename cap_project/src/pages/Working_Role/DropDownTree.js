@@ -1,5 +1,5 @@
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FontAwesomeIcon  from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import './dropDownTree.scss';
 import EditWorkingRole from './EditWorkingRole';
@@ -28,7 +28,7 @@ const DropDownTree = ({ data }) => {
     return (
       <ul className="dropDownTree">
         {data
-          .filter((node) => node.parent === parentId)
+          .filter((node) => node.role_parent_id === parentId)
           .map((node) => (
             <li key={node.id}>
               <div className="nameRole">
@@ -41,7 +41,7 @@ const DropDownTree = ({ data }) => {
                     setIsShowModalEdit(true);
                   }}
                 >
-                  {node.name}
+                  {node.path_name}
                 </label>
               </div>
               {expandedNodes.includes(node.id) && renderTree(node.id, level + 1)}

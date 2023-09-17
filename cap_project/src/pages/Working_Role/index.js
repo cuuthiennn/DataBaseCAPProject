@@ -2,19 +2,20 @@ import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import ModalAddNew from './ModalAddNew';
 import DropDownTree from './DropDownTree';
+import { workingRole_GetAll } from '~/components/servers/WorkingRoleService';
 
-function model_workingRole(id, name, parent) {
-  return { id, name, parent };
-}
+// function model_workingRole(id, name, parent) {
+//   return { id, name, parent };
+// }
 
-const rows = [
-  model_workingRole(1, 'VietNam', null),
-  model_workingRole(2, 'Finance', 1),
-  model_workingRole(3, 'Marketing', 1),
-  model_workingRole(4, 'NAV', 2),
-  model_workingRole(5, 'Sale', 3),
-  model_workingRole(6, 'USA', null),
-];
+// const rows = [
+//   model_workingRole(1, 'VietNam', null),
+//   model_workingRole(2, 'Finance', 1),
+//   model_workingRole(3, 'Marketing', 1),
+//   model_workingRole(4, 'NAV', 2),
+//   model_workingRole(5, 'Sale', 3),
+//   model_workingRole(6, 'USA', null),
+// ];
 
 function Working_Role() {
   const [listWorkingRole, setListWorkingRole] = useState([]);
@@ -22,8 +23,17 @@ function Working_Role() {
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
 
   useEffect(() => {
-    setListWorkingRole(rows);
+    // setListWorkingRole(rows);
+    getWorkingRoles();
   }, []);
+
+  const getWorkingRoles = async () => {
+    let res = await workingRole_GetAll();
+    if (res && res.data) {
+      console.log(res.data);
+      setListWorkingRole(res.data);
+    }
+  };
 
   const handleAddWorkingRole = (role) => {
     setListWorkingRole([...listWorkingRole, ...role]);

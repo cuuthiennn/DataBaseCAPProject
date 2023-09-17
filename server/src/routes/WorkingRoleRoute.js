@@ -1,16 +1,26 @@
-const express = require('express')
-const router = express.Router()
-const WorkingRoleController = require('../controller/WorkingRoleController')
-const workingRoleController = new WorkingRoleController()
+const express = require("express");
+const router = express.Router();
+const WorkingRoleController = require("../controller/WorkingRoleController");
+const workingRoleController = new WorkingRoleController();
 
-router.route('/getPathById/:id').get(workingRoleController.getPathById)
+router
+  .route("/getAllWorkingRoles")
+  .get(workingRoleController.getAllWorkingRoles);
 
-router.route('/getWorkingRoleChileById/:id').get(workingRoleController.getWorkingRoleChileById)
+router.route("/getPathById/:id").get(workingRoleController.getPathById);
 
-router.route('/createRole/:path_name.:role_parent_id').post(workingRoleController.createWorkingRole)
+router
+  .route("/getWorkingRoleChileById/:id")
+  .get(workingRoleController.getWorkingRoleChileById);
 
-router.route('/updateRole/:id.:path_name.:role_parent_id').put(workingRoleController.updateWorkingRole)
+router
+  .route("/createRole/:path_name.:role_parent_id")
+  .post(workingRoleController.createWorkingRole);
 
-router.route('/deleteRole/:id').delete(workingRoleController.deleteWorkingRole)
+router
+  .route("/updateRole/:id.:path_name.:role_parent_id")
+  .put(workingRoleController.updateWorkingRole);
 
-module.exports = router
+router.route("/deleteRole/:id").delete(workingRoleController.deleteWorkingRole);
+
+module.exports = router;

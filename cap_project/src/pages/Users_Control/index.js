@@ -17,11 +17,6 @@ function Users_Control() {
   const [isShowModalDelete, setIsShowModalDelete] = useState(false);
   const [dataUserDelete, setDataModalDelete] = useState({});
 
-  // Update table when add new user successfully
-  const handleUpdateTable = (user) => {
-    setListUsers([user, ...listUsers]);
-  };
-
   // Update table when update user successfully
   const handleEditUserFromModal = (user) => {
     let cloneListUsers = _.cloneDeep(listUsers);
@@ -31,25 +26,16 @@ function Users_Control() {
     setListUsers(cloneListUsers);
   };
 
-  // Update table when delete user successfully
-  const handleDeleteUserFromModal = (user) => {
-    let cloneListUsers = _.cloneDeep(listUsers);
-    cloneListUsers = cloneListUsers.filter((item) => item.id !== user.id);
-    setListUsers(cloneListUsers);
-  };
-
   // Add all users to list
   useEffect(() => {
-    // setListUsers(rows);
     getUsers();
-  }, []);
+  }, [isShowModalAddNew, isShowModalEdit, isShowModalDelete]);
 
   const getUsers = async () => {
     let res = await fetchAllUser();
     if (res && res.data) {
-      setListUsers(res.data[0]);
+      setListUsers(res.data);
     }
-    console.log(res.data[0]);
   };
 
   return (
@@ -115,11 +101,7 @@ function Users_Control() {
         </tbody>
       </Table>
 
-      <ModelAddNew
-        show={isShowModalAddNew}
-        handleClose={() => setIsShowModalAddNew(false)}
-        handleUpdateTable={handleUpdateTable}
-      />
+      <ModelAddNew show={isShowModalAddNew} handleClose={() => setIsShowModalAddNew(false)} />
 
       <ModalEditUser
         show={isShowModalEdit}
@@ -132,7 +114,6 @@ function Users_Control() {
         show={isShowModalDelete}
         handleClose={() => setIsShowModalDelete(false)}
         dataUserDelete={dataUserDelete}
-        handleDeleteUserFromModal={handleDeleteUserFromModal}
       />
     </section>
   );

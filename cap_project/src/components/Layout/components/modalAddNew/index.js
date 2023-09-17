@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 import { postCreateUser } from '~/components/servers/UsersService';
 
 const ModelAddNew = (props) => {
-  const { show, handleClose, handleUpdateTable } = props;
+  const { show, handleClose } = props;
 
-  const [username, setUsername] = useState('');
+  const [user_name, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState(true);
@@ -17,41 +17,20 @@ const ModelAddNew = (props) => {
   const [role, setRole] = useState('');
 
   const handleSaveUser = async () => {
-    let res = await postCreateUser({
-      user_name: username,
-      password: password,
-      first_name: firstName,
-      last_name: lastName,
-      birthday: birthday,
-      email: email,
-      gender: gender,
-      phone: phone,
-    });
-    console.log(res);
-    // if (res && res.id) {
-    //   setUsername('');
-    //   setPassword('');
-    //   setFirstName('');
-    //   setLastName('');
-    //   setBirthday('');
-    //   setEmail('');
-    //   setGender(true);
-    //   setPhone('');
-    //   setRole('');
-    //   toast.success('Create User Successfully');
-    //   handleUpdateTable({
-    //     user_name: username,
-    //     password: password,
-    //     first_name: firstName,
-    //     last_name: lastName,
-    //     birthday: birthday,
-    //     email: email,
-    //     gender: gender,
-    //     phone: phone,
-    //     role: role,
-    //   });
-    //   handleClose(false);
-    // }
+    let res = await postCreateUser(user_name, password, first_name, last_name, birthday, email, gender, phone);
+    if (res && res.data) {
+      setUsername('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
+      setBirthday('');
+      setEmail('');
+      setGender(true);
+      setPhone('');
+      setRole('');
+      toast.success('Create User Successfully');
+      handleClose(false);
+    }
   };
 
   return (
@@ -72,7 +51,7 @@ const ModelAddNew = (props) => {
                     type="text"
                     className="form-control"
                     id="username"
-                    value={username}
+                    value={user_name}
                     onChange={(event) => setUsername(event.target.value)}
                   />
                 </div>
@@ -102,7 +81,7 @@ const ModelAddNew = (props) => {
                     type="text"
                     className="form-control"
                     id="firstName"
-                    value={firstName}
+                    value={first_name}
                     onChange={(event) => setFirstName(event.target.value)}
                   />
                 </div>
@@ -116,7 +95,7 @@ const ModelAddNew = (props) => {
                     type="text"
                     className="form-control"
                     id="lastName"
-                    value={lastName}
+                    value={last_name}
                     onChange={(event) => setLastName(event.target.value)}
                   />
                 </div>

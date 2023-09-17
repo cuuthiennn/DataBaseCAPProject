@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { putUpdateUser } from '~/components/servers/UsersService';
 
 function ModalEditUser(props) {
-  const { show, handleClose, dataUserEdit, handleEditUserFromModal } = props;
+  const { show, handleClose, dataUserEdit } = props;
 
   const [id, setId] = useState();
-  const [username, setUsername] = useState('');
+  const [user_name, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState(true);
@@ -31,21 +32,22 @@ function ModalEditUser(props) {
     }
   }, [dataUserEdit, show]);
 
-  const handleEditUser = () => {
-    handleEditUserFromModal({
-      id: id,
-      user_name: username,
-      password: password,
-      first_ame: firstName,
-      last_name: lastName,
-      birthday: birthday,
-      email: email,
-      gender: gender,
-      phone: phone,
-      role: role,
-    });
-    handleClose(false);
-    toast.success('Updated User Successfully');
+  const handleEditUser = async () => {
+    let res = await putUpdateUser(id, { user_name, password, first_name, last_name, birthday, email, gender, phone });
+    if (res && res.data) {
+      setId('');
+      setUsername('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
+      setBirthday('');
+      setEmail('');
+      setGender(true);
+      setPhone('');
+      setRole('');
+      handleClose(false);
+      toast.success('Updated User Successfully');
+    }
   };
 
   return (
@@ -65,7 +67,7 @@ function ModalEditUser(props) {
                   type="text"
                   className="form-control"
                   id="username"
-                  value={username}
+                  value={user_name}
                   onChange={(event) => setUsername(event.target.value)}
                 />
               </div>
@@ -95,7 +97,7 @@ function ModalEditUser(props) {
                   type="text"
                   className="form-control"
                   id="firstName"
-                  value={firstName}
+                  value={first_name}
                   onChange={(event) => setFirstName(event.target.value)}
                 />
               </div>
@@ -109,7 +111,7 @@ function ModalEditUser(props) {
                   type="text"
                   className="form-control"
                   id="lastName"
-                  value={lastName}
+                  value={last_name}
                   onChange={(event) => setLastName(event.target.value)}
                 />
               </div>

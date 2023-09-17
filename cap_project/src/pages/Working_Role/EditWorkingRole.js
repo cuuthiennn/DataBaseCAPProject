@@ -13,7 +13,7 @@ const EditWorkingRole = (props) => {
   const [path, setPath] = useState([]);
 
   const handleSaveUser = () => {
-    data.name = name;
+    data.path_name = name;
     hanleEditWorkingRole(data);
     toast.success('Edt working role successfully');
     handleClose(false);
@@ -35,7 +35,7 @@ const EditWorkingRole = (props) => {
 
   useEffect(() => {
     if (show) {
-      setName(data.name);
+      setName(data.path_name);
     }
   }, [show, data]);
 
