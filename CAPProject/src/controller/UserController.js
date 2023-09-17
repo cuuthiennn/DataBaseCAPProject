@@ -110,7 +110,6 @@ class UserController{
                 password: req.params.password
             }
             const result = JSON.parse(await this.userModle.login(user)).recordset;
-            console.log(result[0].id);
             if(result) {
                 await this.sessionService.setSession(req, result[0].id, result[0].user_name)
                 res.status(200).json({

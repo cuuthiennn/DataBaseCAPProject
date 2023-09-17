@@ -7,11 +7,30 @@ class WorkingRoleController {
         this.sessionService = new SessionService();
     }
 
+    getAllWorkingRoles = async (req, res) => {
+        if ( this.workingRoleModle.isExist(req) ){
+            try {
+                const workingRoles = JSON.parse( await this.workingRoleModle.getAllWorkingRoles()).recordset;
+                res.status(200).json({
+                    message: "Success when call api getAllWorkingRoles",
+                    success: true,
+                    data: workingRoles
+                })
+            } catch (error) {
+                res.status(200).json({
+                    message: "Error when call api getAllWorkingRoles" + error.message,
+                    success: false,
+                    data: data
+                })
+            }
+        }
+    }
+
     createWorkingRole = async (req, res) => {
         if (this.sessionService.isExist(req)) {
             try {
                 const {path_name, role_parent_id} = req.params;
-                const workingRole = await this.userRoleModle.createUserRole(path_name, role_parent_id);
+                const workingRole = JSON.parse( await this.workingRoleModle.createRole(path_name, role_parent_id) ).recordset;
                 res.status(200).json({
                     message: "Success when call api createWorkingRole",
                     success: true,

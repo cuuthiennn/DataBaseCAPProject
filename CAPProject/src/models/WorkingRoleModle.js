@@ -1,6 +1,13 @@
 const pool = require('../config/database')
 
 class WorkingRole {
+
+    getAllWorkingRoles = async () => {
+        const queryCommand = `SELECT id, path_name, role_parent_id FROM working_role`;
+        const db = pool.request();
+        const result = JSON.stringify( await db.query(queryCommand) );
+        return result;
+    }
     
     getPathById = async (id) => {
         const queryCommand = `SELECT [id]`+
